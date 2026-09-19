@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { analyzePassword } from "./utils/passwordAnalyzer";
 import { generatePassword } from "./utils/passwordGenerator";
 
@@ -14,6 +14,7 @@ function App() {
 
   const [copied, setCopied] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const analysis = analyzePassword(password);
 
@@ -90,10 +91,6 @@ function App() {
 
   const mutedText = darkMode ? "text-slate-400" : "text-slate-600";
 
-  const borderColor = darkMode
-    ? "border-slate-700/50"
-    : "border-slate-200";
-
   return (
     <div
       className={`min-h-screen overflow-x-hidden transition-colors duration-500 ${
@@ -103,7 +100,7 @@ function App() {
       }`}
     >
       {/* ========================================
-          Professional Animated Background
+          Animated Background
       ========================================= */}
 
       <div
@@ -119,41 +116,36 @@ function App() {
           }`}
         />
 
-        {/* Large flowing aurora */}
+        {/* Blue glow */}
         <div
           className={`absolute -left-[25%] top-[5%] h-[45%] w-[75%] rounded-[50%] blur-[100px] ${
-            darkMode
-              ? "bg-blue-600/14"
-              : "bg-blue-400/16"
-          } animate-aurora-one`}
+            darkMode ? "bg-blue-600/14" : "bg-blue-400/16"
+          } animate-aurora-one motion-reduce:animate-none`}
         />
 
+        {/* Purple glow */}
         <div
           className={`absolute -right-[25%] top-[25%] h-[45%] w-[75%] rounded-[50%] blur-[110px] ${
-            darkMode
-              ? "bg-violet-600/12"
-              : "bg-violet-400/14"
-          } animate-aurora-two`}
+            darkMode ? "bg-violet-600/12" : "bg-violet-400/14"
+          } animate-aurora-two motion-reduce:animate-none`}
         />
 
+        {/* Cyan glow */}
         <div
           className={`absolute left-[15%] bottom-[-20%] h-[45%] w-[70%] rounded-[50%] blur-[120px] ${
-            darkMode
-              ? "bg-cyan-500/8"
-              : "bg-cyan-400/10"
-          } animate-aurora-three`}
+            darkMode ? "bg-cyan-500/8" : "bg-cyan-400/10"
+          } animate-aurora-three motion-reduce:animate-none`}
         />
 
-        {/* Flowing light sweep */}
+        {/* Light sweep */}
         <div
           className={`absolute -left-1/2 top-[42%] h-40 w-[180%] rotate-[-12deg] blur-3xl ${
             darkMode
               ? "bg-gradient-to-r from-transparent via-blue-500/8 to-transparent"
               : "bg-gradient-to-r from-transparent via-blue-400/10 to-transparent"
-          } animate-light-sweep`}
+          } animate-light-sweep motion-reduce:animate-none`}
         />
 
-        {/* Very subtle vertical atmosphere */}
         <div
           className={`absolute inset-0 ${
             darkMode
@@ -174,13 +166,9 @@ function App() {
             : "border-slate-200/80 bg-white/70"
         }`}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-          {/* Logo */}
-          <a
-            href="#home"
-            className="flex items-center gap-3"
-          >
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg shadow-blue-500/20">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-5 sm:py-4 lg:px-8">
+          <a href="#home" className="flex items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl sm:h-11 sm:w-11 bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg shadow-blue-500/20">
               <svg
                 className="h-6 w-6 text-white"
                 viewBox="0 0 24 24"
@@ -188,33 +176,27 @@ function App() {
                 stroke="currentColor"
                 strokeWidth="2"
               >
-                <rect
-                  x="5"
-                  y="11"
-                  width="14"
-                  height="10"
-                  rx="2"
-                />
+                <rect x="5" y="11" width="14" height="10" rx="2" />
                 <path d="M8 11V8a4 4 0 018 0v3" />
                 <path d="M12 15v2" />
               </svg>
             </div>
 
             <div className="hidden sm:block">
-              <h1 className="text-base font-bold tracking-tight">
+              <h1 className="text-sm font-bold tracking-tight sm:text-base">
                 Password Security Analyzer
               </h1>
 
-              <p className={`text-xs ${mutedText}`}>
+              <p className={`hidden text-xs sm:block ${mutedText}`}>
                 Analyze • Generate • Stay Secure
               </p>
             </div>
           </a>
 
-          {/* Navigation */}
           <nav className="hidden items-center gap-7 md:flex">
             <a
               href="#home"
+              onClick={() => setMobileMenuOpen(false)}
               className={`text-sm font-medium transition ${
                 darkMode
                   ? "text-white hover:text-blue-400"
@@ -226,6 +208,7 @@ function App() {
 
             <a
               href="#about"
+              onClick={() => setMobileMenuOpen(false)}
               className={`text-sm font-medium transition ${
                 darkMode
                   ? "text-slate-400 hover:text-white"
@@ -237,6 +220,7 @@ function App() {
 
             <a
               href="#tips"
+              onClick={() => setMobileMenuOpen(false)}
               className={`text-sm font-medium transition ${
                 darkMode
                   ? "text-slate-400 hover:text-white"
@@ -247,7 +231,7 @@ function App() {
             </a>
 
             <a
-              href="https://github.com/"
+              href="https://github.com/Beeresh01/password-security-analyzer"
               target="_blank"
               rel="noreferrer"
               className={`text-sm font-medium transition ${
@@ -259,9 +243,84 @@ function App() {
               GitHub
             </a>
           </nav>
+        {mobileMenuOpen && (
+          <div
+            id="mobile-navigation"
+            className={`border-t px-4 pb-4 pt-3 md:hidden ${
+              darkMode ? "border-slate-800/70" : "border-slate-200/80"
+            }`}
+          >
+            <nav className="mx-auto flex max-w-7xl flex-col gap-1" aria-label="Mobile navigation">
+              <a
+                href="#home"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`rounded-xl px-4 py-3 text-sm font-medium transition ${
+                  darkMode ? "text-white hover:bg-slate-800" : "text-slate-800 hover:bg-slate-100"
+                }`}
+              >
+                Home
+              </a>
+              <a
+                href="#about"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`rounded-xl px-4 py-3 text-sm font-medium transition ${
+                  darkMode ? "text-slate-300 hover:bg-slate-800" : "text-slate-600 hover:bg-slate-100"
+                }`}
+              >
+                About
+              </a>
+              <a
+                href="#tips"
+                onClick={() => setMobileMenuOpen(false)}
+                className={`rounded-xl px-4 py-3 text-sm font-medium transition ${
+                  darkMode ? "text-slate-300 hover:bg-slate-800" : "text-slate-600 hover:bg-slate-100"
+                }`}
+              >
+                Security Tips
+              </a>
+              <a
+                href="https://github.com/"
+                target="_blank"
+                rel="noreferrer"
+                className={`rounded-xl px-4 py-3 text-sm font-medium transition ${
+                  darkMode ? "text-slate-300 hover:bg-slate-800" : "text-slate-600 hover:bg-slate-100"
+                }`}
+              >
+                GitHub
+              </a>
+            </nav>
+          </div>
+        )}
 
-          {/* Theme */}
+
           <button
+            type="button"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            className={`flex h-10 w-10 items-center justify-center rounded-xl border md:hidden ${
+              darkMode
+                ? "border-slate-700 bg-slate-800/70 hover:bg-slate-700"
+                : "border-slate-200 bg-white hover:bg-slate-100"
+            }`}
+            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
+          >
+            {mobileMenuOpen ? (
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M6 6l12 12" />
+                <path d="M18 6L6 18" />
+              </svg>
+            ) : (
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M4 6h16" />
+                <path d="M4 12h16" />
+                <path d="M4 18h16" />
+              </svg>
+            )}
+          </button>
+
+          <button
+            type="button"
             onClick={() => setDarkMode(!darkMode)}
             className={`flex h-10 w-10 items-center justify-center rounded-xl border transition ${
               darkMode
@@ -303,15 +362,17 @@ function App() {
         </div>
       </header>
 
+      {/* ========================================
+          Main
+      ========================================= */}
+
       <main
         id="home"
-        className="relative z-10 mx-auto max-w-6xl px-5 pb-20 pt-10 lg:px-8"
+        className="relative z-10 mx-auto max-w-6xl px-4 pb-16 pt-8 sm:px-5 sm:pb-20 sm:pt-10 lg:px-8"
       >
-        {/* ========================================
-            Hero
-        ========================================= */}
+        {/* Hero */}
 
-        <section className="animate-fade-in-up pb-10 pt-6 text-center">
+        <section className="animate-fade-in-up motion-reduce:animate-none pb-8 pt-4 text-center sm:pb-10 sm:pt-6">
           <div
             className={`mx-auto mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm ${
               darkMode
@@ -326,20 +387,14 @@ function App() {
               stroke="currentColor"
               strokeWidth="2"
             >
-              <rect
-                x="5"
-                y="11"
-                width="14"
-                height="10"
-                rx="2"
-              />
+              <rect x="5" y="11" width="14" height="10" rx="2" />
               <path d="M8 11V8a4 4 0 018 0v3" />
             </svg>
 
             100% Client-Side • Your password stays in your browser
           </div>
 
-          <h2 className="text-4xl font-black tracking-tight sm:text-5xl lg:text-6xl">
+          <h2 className="text-3xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
             Stronger Passwords.
             <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent">
               Better Security.
@@ -347,7 +402,7 @@ function App() {
           </h2>
 
           <p
-            className={`mx-auto mt-5 max-w-2xl text-base leading-7 sm:text-lg ${mutedText}`}
+            className={`mx-auto mt-4 max-w-2xl px-2 text-sm leading-6 sm:mt-5 sm:px-0 sm:text-lg sm:leading-7 ${mutedText}`}
           >
             Analyze password strength, understand its security
             characteristics, and generate strong random passwords —
@@ -355,12 +410,10 @@ function App() {
           </p>
         </section>
 
-        {/* ========================================
-            Password Input
-        ========================================= */}
+        {/* Password Input */}
 
         <section
-          className={`${cardClass} security-card animate-scale-in rounded-3xl p-5 sm:p-7`}
+          className={`${cardClass} security-card animate-scale-in motion-reduce:animate-none rounded-3xl p-4 sm:p-7`}
         >
           <div className="mb-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -384,9 +437,7 @@ function App() {
               </div>
 
               <div>
-                <h3 className="font-bold">
-                  Enter your password
-                </h3>
+                <h3 className="font-bold">Enter your password</h3>
 
                 <p className={`text-xs ${mutedText}`}>
                   Nothing is uploaded or stored
@@ -395,6 +446,7 @@ function App() {
             </div>
 
             <button
+              type="button"
               onClick={() => setShowPassword(!showPassword)}
               className={`hidden items-center gap-2 text-sm sm:flex ${
                 darkMode
@@ -422,17 +474,19 @@ function App() {
               stroke="currentColor"
               strokeWidth="2"
             >
-              <rect
-                x="5"
-                y="11"
-                width="14"
-                height="10"
-                rx="2"
-              />
+              <rect x="5" y="11" width="14" height="10" rx="2" />
               <path d="M8 11V8a4 4 0 018 0v3" />
             </svg>
 
+            <label htmlFor="password-input" className="sr-only">
+              Password to analyze
+            </label>
             <input
+              id="password-input"
+              name="password"
+              autoComplete="new-password"
+              spellCheck={false}
+              aria-label="Password to analyze"
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -445,6 +499,7 @@ function App() {
             />
 
             <button
+              type="button"
               onClick={() => setShowPassword(!showPassword)}
               className={`rounded-lg p-2 ${
                 darkMode
@@ -454,9 +509,7 @@ function App() {
             >
               <svg
                 className={`h-5 w-5 ${
-                  darkMode
-                    ? "text-slate-400"
-                    : "text-slate-500"
+                  darkMode ? "text-slate-400" : "text-slate-500"
                 }`}
                 viewBox="0 0 24 24"
                 fill="none"
@@ -481,14 +534,13 @@ function App() {
           </div>
         </section>
 
-        {/* ========================================
-            Strength + Requirements
-        ========================================= */}
+        {/* Strength + Requirements */}
 
         <section className="mt-5 grid gap-5 md:grid-cols-2">
           {/* Strength */}
+
           <div
-            className={`${cardClass} security-card rounded-3xl p-6`}
+            className={`${cardClass} security-card rounded-3xl p-5 sm:p-6`}
           >
             <div className="mb-5 flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -511,15 +563,11 @@ function App() {
                   </svg>
                 </div>
 
-                <h3 className="font-bold">
-                  Password Strength
-                </h3>
+                <h3 className="font-bold">Password Strength</h3>
               </div>
 
               <div className="text-right">
-                <p className={`text-xs ${mutedText}`}>
-                  Score
-                </p>
+                <p className={`text-xs ${mutedText}`}>Score</p>
 
                 <p className="font-bold">
                   {analysis.score}
@@ -530,7 +578,7 @@ function App() {
               </div>
             </div>
 
-            <div className="mb-4 flex items-end justify-between">
+            <div className="mb-4">
               <span
                 className={`text-3xl font-black ${getStrengthColor()}`}
               >
@@ -540,12 +588,15 @@ function App() {
 
             <div
               className={`h-3 overflow-hidden rounded-full ${
-                darkMode
-                  ? "bg-slate-800"
-                  : "bg-slate-200"
+                darkMode ? "bg-slate-800" : "bg-slate-200"
               }`}
             >
               <div
+                role="progressbar"
+                aria-label="Password strength score"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={analysis.score}
                 className={`h-full rounded-full transition-all duration-700 ${getBarColor()}`}
                 style={{
                   width: `${analysis.score}%`,
@@ -561,8 +612,9 @@ function App() {
           </div>
 
           {/* Requirements */}
+
           <div
-            className={`${cardClass} security-card rounded-3xl p-6`}
+            className={`${cardClass} security-card rounded-3xl p-5 sm:p-6`}
           >
             <div className="mb-5 flex items-center gap-3">
               <div
@@ -584,9 +636,7 @@ function App() {
                 </svg>
               </div>
 
-              <h3 className="font-bold">
-                Password Requirements
-              </h3>
+              <h3 className="font-bold">Password Requirements</h3>
             </div>
 
             <div className="space-y-3">
@@ -624,12 +674,232 @@ function App() {
         </section>
 
         {/* ========================================
+            Smart Security Analysis
+        ========================================= */}
+
+        <section className="mt-5">
+          <div
+            className={`${cardClass} security-card rounded-3xl p-6 sm:p-7`}
+          >
+            <div className="mb-6 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div
+                  className={`flex h-11 w-11 items-center justify-center rounded-xl ${
+                    analysis.warnings.length === 0
+                      ? darkMode
+                        ? "bg-emerald-500/10 text-emerald-400"
+                        : "bg-emerald-50 text-emerald-600"
+                      : darkMode
+                        ? "bg-amber-500/10 text-amber-400"
+                        : "bg-amber-50 text-amber-600"
+                  }`}
+                >
+                  {analysis.warnings.length === 0 ? (
+                    <svg
+                      className="h-6 w-6"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                      <path d="m9 12 2 2 4-4" />
+                    </svg>
+                  ) : (
+                    <svg
+                      className="h-6 w-6"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M10.29 3.86 1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                      <path d="M12 9v4" />
+                      <path d="M12 17h.01" />
+                    </svg>
+                  )}
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-bold">
+                    Smart Security Analysis
+                  </h3>
+
+                  <p className={`text-sm ${mutedText}`}>
+                    Checks for predictable password patterns
+                  </p>
+                </div>
+              </div>
+
+              {password && (
+                <span
+                  className={`hidden rounded-full px-3 py-1 text-xs font-semibold sm:block ${
+                    analysis.warnings.length === 0
+                      ? darkMode
+                        ? "bg-emerald-500/10 text-emerald-400"
+                        : "bg-emerald-50 text-emerald-700"
+                      : darkMode
+                        ? "bg-amber-500/10 text-amber-400"
+                        : "bg-amber-50 text-amber-700"
+                  }`}
+                >
+                  {analysis.warnings.length === 0
+                    ? "No obvious weaknesses"
+                    : `${analysis.warnings.length} warning${
+                        analysis.warnings.length === 1 ? "" : "s"
+                      }`}
+                </span>
+              )}
+            </div>
+
+            {!password ? (
+              <div
+                className={`rounded-2xl border border-dashed p-6 text-center ${
+                  darkMode
+                    ? "border-slate-700 bg-slate-900/30"
+                    : "border-slate-300 bg-slate-50/70"
+                }`}
+              >
+                <svg
+                  className={`mx-auto h-8 w-8 ${
+                    darkMode ? "text-slate-600" : "text-slate-400"
+                  }`}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <path d="M12 15v2" />
+                  <rect
+                    x="5"
+                    y="11"
+                    width="14"
+                    height="10"
+                    rx="2"
+                  />
+                  <path d="M8 11V8a4 4 0 018 0v3" />
+                </svg>
+
+                <p className={`mt-3 text-sm ${mutedText}`}>
+                  Enter a password to check for predictable patterns
+                  and common weaknesses.
+                </p>
+              </div>
+            ) : analysis.warnings.length === 0 ? (
+              <div
+                className={`flex items-start gap-4 rounded-2xl border p-5 ${
+                  darkMode
+                    ? "border-emerald-500/20 bg-emerald-500/5"
+                    : "border-emerald-200 bg-emerald-50/70"
+                }`}
+              >
+                <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white">
+                  <svg
+                    className="h-5 w-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                  >
+                    <path d="m5 12 4 4L19 6" />
+                  </svg>
+                </div>
+
+                <div>
+                  <h4
+                    className={`font-semibold ${
+                      darkMode
+                        ? "text-emerald-400"
+                        : "text-emerald-700"
+                    }`}
+                  >
+                    No obvious predictable patterns detected
+                  </h4>
+
+                  <p
+                    className={`mt-1 text-sm leading-6 ${
+                      darkMode
+                        ? "text-slate-400"
+                        : "text-slate-600"
+                    }`}
+                  >
+                    This password does not match the common patterns
+                    checked by the analyzer.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {analysis.warnings.map((warning, index) => (
+                  <div
+                    key={index}
+                    className={`flex items-start gap-4 rounded-2xl border p-4 ${
+                      darkMode
+                        ? "border-amber-500/20 bg-amber-500/5"
+                        : "border-amber-200 bg-amber-50/70"
+                    }`}
+                  >
+                    <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-amber-500/10">
+                      <svg
+                        className={`h-4 w-4 ${
+                          darkMode
+                            ? "text-amber-400"
+                            : "text-amber-600"
+                        }`}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                      >
+                        <path d="M12 9v4" />
+                        <path d="M12 17h.01" />
+                      </svg>
+                    </div>
+
+                    <p
+                      className={`text-sm leading-6 ${
+                        darkMode
+                          ? "text-slate-300"
+                          : "text-slate-700"
+                      }`}
+                    >
+                      {warning}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {password && analysis.warnings.length > 0 && (
+              <div
+                className={`mt-5 rounded-2xl p-4 text-sm ${
+                  darkMode
+                    ? "bg-slate-900/60 text-slate-400"
+                    : "bg-slate-100 text-slate-600"
+                }`}
+              >
+                <span className="font-semibold">Tip:</span>{" "}
+                A password can contain uppercase letters, numbers and
+                symbols while still being predictable. Length,
+                uniqueness and unpredictability all matter.
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* ========================================
+            Step 9 - Security Score
+        ========================================= */}
+
+        <SecurityScore analysis={analysis} />
+
+        {/* ========================================
             Character Analysis + Metrics
         ========================================= */}
 
         <section className="mt-5 grid gap-5 md:grid-cols-2">
           <div
-            className={`${cardClass} security-card rounded-3xl p-6`}
+            className={`${cardClass} security-card rounded-3xl p-5 sm:p-6`}
           >
             <div className="mb-6 flex items-center gap-3">
               <div
@@ -654,9 +924,7 @@ function App() {
                 </svg>
               </div>
 
-              <h3 className="font-bold">
-                Character Analysis
-              </h3>
+              <h3 className="font-bold">Character Analysis</h3>
             </div>
 
             <div className="space-y-5">
@@ -692,8 +960,9 @@ function App() {
 
           <div className="grid gap-5">
             {/* Entropy */}
+
             <div
-              className={`${cardClass} security-card rounded-3xl p-6`}
+              className={`${cardClass} security-card rounded-3xl p-5 sm:p-6`}
             >
               <div className="mb-4 flex items-center gap-3">
                 <div
@@ -717,9 +986,7 @@ function App() {
                   </svg>
                 </div>
 
-                <h3 className="font-bold">
-                  Estimated Entropy
-                </h3>
+                <h3 className="font-bold">Estimated Entropy</h3>
               </div>
 
               <div className="flex items-end gap-2">
@@ -727,9 +994,7 @@ function App() {
                   {analysis.entropy.toFixed(1)}
                 </span>
 
-                <span className={`mb-1 ${mutedText}`}>
-                  bits
-                </span>
+                <span className={`mb-1 ${mutedText}`}>bits</span>
               </div>
 
               <p className={`mt-2 text-sm ${mutedText}`}>
@@ -739,8 +1004,9 @@ function App() {
             </div>
 
             {/* Character Pool */}
+
             <div
-              className={`${cardClass} security-card rounded-3xl p-6`}
+              className={`${cardClass} security-card rounded-3xl p-5 sm:p-6`}
             >
               <div className="mb-4 flex items-center gap-3">
                 <div
@@ -765,9 +1031,7 @@ function App() {
                   </svg>
                 </div>
 
-                <h3 className="font-bold">
-                  Character Pool
-                </h3>
+                <h3 className="font-bold">Character Pool</h3>
               </div>
 
               <div className="text-3xl font-black">
@@ -864,7 +1128,7 @@ function App() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <GeneratorOption
                 label="Uppercase"
                 checked={useUppercase}
@@ -897,8 +1161,9 @@ function App() {
 
           <div className="mt-7 grid gap-3 sm:grid-cols-2">
             <button
+              type="button"
               onClick={handleGeneratePassword}
-              className="flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-500 to-violet-500 px-5 py-3.5 font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:-translate-y-0.5 hover:shadow-xl"
+              className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-blue-500 to-violet-500 px-5 py-3.5 font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:-translate-y-0.5 hover:shadow-xl"
             >
               <svg
                 className="h-5 w-5"
@@ -917,9 +1182,11 @@ function App() {
             </button>
 
             <button
+              type="button"
               onClick={handleCopy}
               disabled={!password}
-              className={`flex items-center justify-center gap-2 rounded-2xl border px-5 py-3.5 font-semibold transition ${
+              aria-label={copied ? "Password copied" : "Copy password"}
+              className={`flex min-h-12 items-center justify-center gap-2 rounded-2xl border px-5 py-3.5 font-semibold transition ${
                 !password
                   ? "cursor-not-allowed opacity-40"
                   : darkMode
@@ -992,13 +1259,7 @@ function App() {
               stroke="currentColor"
               strokeWidth="2"
             >
-              <rect
-                x="5"
-                y="11"
-                width="14"
-                height="10"
-                rx="2"
-              />
+              <rect x="5" y="11" width="14" height="10" rx="2" />
               <path d="M8 11V8a4 4 0 018 0v3" />
             </svg>
           </div>
@@ -1020,10 +1281,7 @@ function App() {
             About
         ========================================= */}
 
-        <section
-          id="about"
-          className="scroll-mt-24 pt-24"
-        >
+        <section id="about" className="scroll-mt-24 pt-24">
           <div className="mb-6 text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-400">
               About
@@ -1068,10 +1326,7 @@ function App() {
             Security Tips
         ========================================= */}
 
-        <section
-          id="tips"
-          className="scroll-mt-24 pt-24"
-        >
+        <section id="tips" className="scroll-mt-24 pt-24">
           <div className="mb-6 text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-400">
               Security Tips
@@ -1125,7 +1380,7 @@ function App() {
             : "border-slate-200 bg-white/70"
         }`}
       >
-        <div className="mx-auto flex max-w-7xl flex-col gap-5 px-5 py-8 sm:flex-row sm:items-center sm:justify-between lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-5 lg:px-8">
           <div>
             <p className="font-bold">
               Password Security Analyzer
@@ -1136,9 +1391,10 @@ function App() {
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-5 text-sm">
+          <div className="flex flex-wrap gap-x-5 gap-y-3 text-sm">
             <a
               href="#home"
+              onClick={() => setMobileMenuOpen(false)}
               className={`${mutedText} transition hover:text-blue-400`}
             >
               Home
@@ -1146,6 +1402,7 @@ function App() {
 
             <a
               href="#about"
+              onClick={() => setMobileMenuOpen(false)}
               className={`${mutedText} transition hover:text-blue-400`}
             >
               About
@@ -1153,6 +1410,7 @@ function App() {
 
             <a
               href="#tips"
+              onClick={() => setMobileMenuOpen(false)}
               className={`${mutedText} transition hover:text-blue-400`}
             >
               Security Tips
@@ -1174,7 +1432,400 @@ function App() {
 }
 
 /* ========================================
-   Requirement Component
+   Security Score Dashboard
+======================================== */
+
+function SecurityScore({
+  analysis,
+}: {
+  analysis: ReturnType<typeof analyzePassword>;
+}) {
+  const {
+    score,
+    strength,
+    warnings,
+    isCommonPassword,
+    hasSequentialPattern,
+    hasRepeatedCharacters,
+    hasRepeatedPattern,
+    hasKeyboardPattern,
+    hasCommonSubstitution,
+    length,
+  } = analysis;
+
+  const riskCount = [
+    isCommonPassword,
+    hasSequentialPattern,
+    hasRepeatedCharacters,
+    hasRepeatedPattern,
+    hasKeyboardPattern,
+    hasCommonSubstitution,
+  ].filter(Boolean).length;
+
+  const getScoreColor = () => {
+    if (score < 25) return "text-red-500";
+    if (score < 45) return "text-orange-500";
+    if (score < 65) return "text-yellow-500";
+    if (score < 85) return "text-green-500";
+    return "text-emerald-400";
+  };
+
+  const getProgressColor = () => {
+    if (score < 25) return "from-red-500 to-red-400";
+    if (score < 45) return "from-orange-500 to-orange-400";
+    if (score < 65) return "from-yellow-500 to-yellow-400";
+    if (score < 85) return "from-green-500 to-green-400";
+    return "from-emerald-500 to-emerald-400";
+  };
+
+  const getMessage = () => {
+    if (score === 0) {
+      return "Enter a password to begin the security analysis.";
+    }
+    if (score < 25) {
+      return "This password needs significant improvement.";
+    }
+    if (score < 45) {
+      return "This password has several security weaknesses.";
+    }
+    if (score < 65) {
+      return "This password provides moderate protection.";
+    }
+    if (score < 85) {
+      return "This password provides good protection.";
+    }
+    return "This password has a strong security profile.";
+  };
+
+  const getRecommendation = () => {
+    if (!length) {
+      return "Enter a password to receive personalized recommendations.";
+    }
+
+    if (length < 12) {
+      return "Increase the password length to at least 12 characters.";
+    }
+
+    if (isCommonPassword) {
+      return "Avoid commonly used passwords and choose something unique.";
+    }
+
+    if (hasKeyboardPattern) {
+      return "Avoid keyboard patterns such as qwerty or asdfgh.";
+    }
+
+    if (hasSequentialPattern) {
+      return "Replace sequential characters with less predictable combinations.";
+    }
+
+    if (hasRepeatedCharacters || hasRepeatedPattern) {
+      return "Avoid repeating the same characters or character groups.";
+    }
+
+    if (hasCommonSubstitution) {
+      return "Do not rely only on predictable substitutions such as @, 0, or 1.";
+    }
+
+    if (score < 65) {
+      return "Add more length and character variety to improve the score.";
+    }
+
+    if (score < 85) {
+      return "A longer, unique passphrase could provide even better protection.";
+    }
+
+    return "Your password has a strong combination of length and variety.";
+  };
+
+  return (
+    <section className="mt-5">
+      <div className="security-card rounded-3xl border border-slate-200/70 bg-white/80 p-6 text-slate-800 shadow-xl shadow-slate-900/5 backdrop-blur-xl dark:border-slate-700/60 dark:bg-slate-900/70 dark:text-slate-100 dark:shadow-black/20 sm:p-7">
+        {/* Header */}
+        <div className="mb-7 flex items-center gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl sm:h-11 sm:w-11 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+            <svg
+              className="h-6 w-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M12 3l8 4v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V7l8-4z" />
+              <path d="M9 12l2 2 4-4" />
+            </svg>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-bold">Security Score</h3>
+            <p className={`text-sm ${darkModeText(analysis)}`}>
+              Combined strength and predictability analysis
+            </p>
+          </div>
+        </div>
+
+        <div className="grid items-center gap-6 sm:gap-8 lg:grid-cols-[230px_1fr]">
+          {/* Score Circle */}
+          <div className="flex justify-center">
+            <div className="relative h-40 w-40 sm:h-48 sm:w-48">
+              <svg
+                className="h-full w-full -rotate-90"
+                viewBox="0 0 120 120"
+              >
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="50"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="10"
+                  className="text-slate-200 dark:text-slate-700"
+                />
+
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="50"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="10"
+                  strokeLinecap="round"
+                  strokeDasharray="314"
+                  strokeDashoffset={314 - (314 * score) / 100}
+                  className={getScoreColor()}
+                  style={{
+                    transition: "stroke-dashoffset 700ms ease",
+                  }}
+                />
+              </svg>
+
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span
+                  className={`text-4xl font-black sm:text-5xl ${getScoreColor()}`}
+                >
+                  {score}
+                </span>
+                <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                  / 100
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Score Information */}
+          <div>
+            <div className="mb-3 flex flex-wrap items-center gap-3">
+              <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                Overall strength
+              </span>
+
+              <span
+                className={`rounded-full bg-slate-100 px-3 py-1 text-sm font-bold dark:bg-slate-800 ${getScoreColor()}`}
+              >
+                {strength}
+              </span>
+            </div>
+
+            <h4 className="mb-2 text-2xl font-bold text-slate-900 dark:text-white">
+              {getMessage()}
+            </h4>
+
+            <p className="max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400">
+              The score combines password length, character variety,
+              and detected predictable patterns. It is an educational
+              estimate and is not a guarantee against password cracking.
+            </p>
+
+            <div className="mt-6">
+              <div className="mb-2 flex justify-between text-xs">
+                <span className="font-medium text-slate-500 dark:text-slate-400">
+                  Security level
+                </span>
+                <span className="font-bold text-slate-700 dark:text-slate-300">
+                  {score}%
+                </span>
+              </div>
+
+              <div className="h-3 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
+                <div
+                  role="progressbar"
+                  aria-label="Overall security score"
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-valuenow={score}
+                  className={`h-full rounded-full bg-gradient-to-r ${getProgressColor()}`}
+                  style={{
+                    width: `${score}%`,
+                    transition: "width 700ms ease",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Summary Cards */}
+        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-5 dark:border-slate-700 dark:bg-slate-800/40">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-slate-500 dark:text-slate-400">
+                Password Length
+              </span>
+              <span className="text-xl">📏</span>
+            </div>
+            <p className="mt-2 text-2xl font-bold text-slate-900 dark:text-white">
+              {length}
+            </p>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+              {length >= 12
+                ? "Good length"
+                : "Consider using 12+ characters"}
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-5 dark:border-slate-700 dark:bg-slate-800/40">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-slate-500 dark:text-slate-400">
+                Detected Risks
+              </span>
+              <span className="text-xl">⚠️</span>
+            </div>
+            <p className="mt-2 text-2xl font-bold text-slate-900 dark:text-white">
+              {riskCount}
+            </p>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+              {riskCount === 0
+                ? "No major patterns detected"
+                : "Predictable patterns found"}
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-5 dark:border-slate-700 dark:bg-slate-800/40">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-slate-500 dark:text-slate-400">
+                Recommendations
+              </span>
+              <span className="text-xl">💡</span>
+            </div>
+            <p className="mt-2 text-2xl font-bold text-slate-900 dark:text-white">
+              {warnings.length}
+            </p>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+              {warnings.length === 0
+                ? "No immediate issues"
+                : "Suggestions available"}
+            </p>
+          </div>
+        </div>
+
+        {/* Recommendation */}
+        <div className="mt-6 rounded-2xl border border-indigo-200 bg-indigo-50/70 p-5 dark:border-indigo-500/20 dark:bg-indigo-500/5">
+          <div className="flex gap-4">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+              <svg
+                className="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path d="M9 18h6" />
+                <path d="M10 22h4" />
+                <path d="M8 14c-1.5-1.1-2.5-2.8-2.5-4.8A6.5 6.5 0 0112 3a6.5 6.5 0 016.5 6.2c0 2-.9 3.7-2.5 4.8-.8.6-1.2 1.4-1.3 2H9.3c-.1-.6-.5-1.4-1.3-2z" />
+              </svg>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-slate-900 dark:text-white">
+                Personalized Recommendation
+              </h4>
+              <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-400">
+                {getRecommendation()}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Detected Risks */}
+        {riskCount > 0 && (
+          <div className="mt-6">
+            <h4 className="mb-3 text-sm font-bold text-slate-900 dark:text-white">
+              Detected Security Issues
+            </h4>
+
+            <div className="space-y-2">
+              {isCommonPassword && (
+                <ScoreRiskItem>
+                  Common password detected
+                </ScoreRiskItem>
+              )}
+
+              {hasSequentialPattern && (
+                <ScoreRiskItem>
+                  Sequential character pattern detected
+                </ScoreRiskItem>
+              )}
+
+              {hasRepeatedCharacters && (
+                <ScoreRiskItem>
+                  Repeated characters detected
+                </ScoreRiskItem>
+              )}
+
+              {hasRepeatedPattern && (
+                <ScoreRiskItem>
+                  Repeated pattern detected
+                </ScoreRiskItem>
+              )}
+
+              {hasKeyboardPattern && (
+                <ScoreRiskItem>
+                  Keyboard pattern detected
+                </ScoreRiskItem>
+              )}
+
+              {hasCommonSubstitution && (
+                <ScoreRiskItem>
+                  Predictable character substitution detected
+                </ScoreRiskItem>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/* ========================================
+   Security Score Helpers
+======================================== */
+
+function darkModeText(
+  analysis: ReturnType<typeof analyzePassword>
+) {
+  // This helper only provides the text class used by the
+  // score component. Theme is inherited by the parent UI.
+  void analysis;
+  return "text-slate-500 dark:text-slate-400";
+}
+
+function ScoreRiskItem({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 dark:border-red-500/20 dark:bg-red-500/5">
+      <div className="h-2 w-2 shrink-0 rounded-full bg-red-500" />
+      <span className="text-sm text-red-700 dark:text-red-300">
+        {children}
+      </span>
+    </div>
+  );
+}
+
+/* ========================================
+   Requirement
 ======================================== */
 
 function Requirement({
@@ -1212,15 +1863,7 @@ function Requirement({
         )}
       </div>
 
-      <span
-        className={
-          met
-            ? ""
-            : darkMode
-              ? "text-slate-500"
-              : "text-slate-500"
-        }
-      >
+      <span className={met ? "" : "text-slate-500"}>
         {text}
       </span>
     </div>
@@ -1242,10 +1885,7 @@ function CharacterRow({
   max: number;
   darkMode: boolean;
 }) {
-  const percentage = Math.min(
-    (value / max) * 100,
-    100
-  );
+  const percentage = Math.min((value / max) * 100, 100);
 
   return (
     <div>
@@ -1258,9 +1898,7 @@ function CharacterRow({
           {label}
         </span>
 
-        <span className="font-semibold">
-          {value}
-        </span>
+        <span className="font-semibold">{value}</span>
       </div>
 
       <div
@@ -1385,9 +2023,7 @@ function TipCard({
 
           <p
             className={`mt-2 text-sm leading-6 ${
-              darkMode
-                ? "text-slate-400"
-                : "text-slate-600"
+              darkMode ? "text-slate-400" : "text-slate-600"
             }`}
           >
             {text}
