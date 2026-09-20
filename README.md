@@ -10,7 +10,7 @@ The entire analysis is performed locally on the user's device. No backend server
 
 ## 🚀 Live Demo
 
-👉 **[Open Password Security Analyzer](YOUR_DEPLOYMENT_URL)**
+👉 **[Open Password Security Analyzer](https://beeresh01.github.io/password-security-analyzer/)**
 
 Try the application directly in your browser.
 
