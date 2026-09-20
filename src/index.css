@@ -284,3 +284,200 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* =========================================================
+   CYBER AURORA BACKGROUND
+   ========================================================= */
+
+.cyber-orb {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.14;
+  will-change: transform;
+}
+
+.cyber-orb-blue {
+  top: -180px;
+  left: -120px;
+  background: #2563eb;
+  animation: cyberFloatBlue 18s ease-in-out infinite alternate;
+}
+
+.cyber-orb-cyan {
+  top: 20%;
+  right: -180px;
+  background: #06b6d4;
+  animation: cyberFloatCyan 22s ease-in-out infinite alternate;
+}
+
+.cyber-orb-purple {
+  bottom: -220px;
+  left: 35%;
+  background: #7c3aed;
+  animation: cyberFloatPurple 25s ease-in-out infinite alternate;
+}
+
+/* Blue orb movement */
+@keyframes cyberFloatBlue {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(120px, 90px, 0) scale(1.12);
+  }
+
+  100% {
+    transform: translate3d(40px, 180px, 0) scale(0.95);
+  }
+}
+
+/* Cyan orb movement */
+@keyframes cyberFloatCyan {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(-130px, 80px, 0) scale(1.1);
+  }
+
+  100% {
+    transform: translate3d(-40px, -100px, 0) scale(0.92);
+  }
+}
+
+/* Purple orb movement */
+@keyframes cyberFloatPurple {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(100px, -90px, 0) scale(1.08);
+  }
+
+  100% {
+    transform: translate3d(-100px, -30px, 0) scale(0.94);
+  }
+}
+
+/* =========================================================
+   FLOATING PARTICLES
+   ========================================================= */
+
+.cyber-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(125, 211, 252, 0.65);
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.45);
+  opacity: 0;
+  animation: cyberParticleFloat 8s ease-in-out infinite;
+}
+
+.particle-1 {
+  top: 18%;
+  left: 12%;
+  animation-delay: 0s;
+}
+
+.particle-2 {
+  top: 32%;
+  left: 72%;
+  animation-delay: 1.5s;
+}
+
+.particle-3 {
+  top: 68%;
+  left: 22%;
+  animation-delay: 3s;
+}
+
+.particle-4 {
+  top: 78%;
+  left: 82%;
+  animation-delay: 4.5s;
+}
+
+.particle-5 {
+  top: 12%;
+  left: 48%;
+  animation-delay: 2s;
+}
+
+.particle-6 {
+  top: 54%;
+  left: 90%;
+  animation-delay: 5s;
+}
+
+.particle-7 {
+  top: 86%;
+  left: 55%;
+  animation-delay: 6s;
+}
+
+.particle-8 {
+  top: 42%;
+  left: 6%;
+  animation-delay: 3.5s;
+}
+
+@keyframes cyberParticleFloat {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0) scale(0.7);
+  }
+
+  20% {
+    opacity: 0.8;
+  }
+
+  50% {
+    opacity: 0.45;
+    transform: translate3d(15px, -30px, 0) scale(1);
+  }
+
+  80% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(-10px, -70px, 0) scale(0.7);
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .cyber-orb,
+  .cyber-particle {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   MOBILE OPTIMIZATION
+   ========================================================= */
+
+@media (max-width: 640px) {
+  .cyber-orb {
+    width: 280px;
+    height: 280px;
+    filter: blur(70px);
+    opacity: 0.1;
+  }
+
+  .cyber-particle {
+    width: 2px;
+    height: 2px;
+  }
+}

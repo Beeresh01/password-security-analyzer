@@ -1,32 +1,65 @@
-# React + TypeScript + Vite
+# 🔐 Password Security Analyzer
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A privacy-focused, client-side web application that analyzes password strength, detects common security patterns, calculates a security score, estimates entropy, and generates secure passwords.
 
-Currently, two official plugins are available:
+> 🔒 **Your password never leaves your browser.**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The entire analysis is performed locally on the user's device. No backend server, database, or external password-analysis API is required.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Live Demo
 
-## Expanding the Oxlint configuration
+👉 **[Open Password Security Analyzer](YOUR_DEPLOYMENT_URL)**
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+Try the application directly in your browser.
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+---
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## 📌 About the Project
+
+Password Security Analyzer is a frontend security project designed to help users understand the strength and characteristics of their passwords.
+
+The application evaluates a password using multiple security-related factors such as:
+
+- Password length
+- Uppercase characters
+- Lowercase characters
+- Numbers
+- Special characters
+- Common password patterns
+- Sequential characters
+- Repeated characters
+- Repeated patterns
+- Keyboard patterns
+- Common character substitutions
+- Estimated entropy
+
+It also provides a **0–100 security score**, detailed warnings, character analysis, and a secure password generator.
+
+The project was built as a practical application of frontend development, TypeScript, browser APIs, password-security concepts, and responsive UI design.
+
+---
+
+## ✨ Features
+
+### 🔐 Password Strength Analysis
+
+Analyze a password in real time and receive a strength classification:
+
+- Very Weak
+- Weak
+- Moderate
+- Strong
+- Very Strong
+
+The analysis considers multiple password characteristics rather than relying only on password length.
+
+---
+
+### 📊 Security Score
+
+The application calculates a security score from:
+
+```text
+0 – 100

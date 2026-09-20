@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { analyzePassword } from "./utils/passwordAnalyzer";
 import { generatePassword } from "./utils/passwordGenerator";
+import CyberBackground from "./components/CyberBackground";
 
 function App() {
   const [password, setPassword] = useState("");
@@ -93,67 +94,17 @@ function App() {
 
   return (
     <div
-      className={`min-h-screen overflow-x-hidden transition-colors duration-500 ${
+      className={`relative isolate min-h-screen overflow-x-hidden transition-colors duration-500 ${
         darkMode
-          ? "bg-slate-950 text-white"
-          : "bg-slate-100 text-slate-900"
+        ? "bg-slate-950 text-white"
+        : "bg-slate-100 text-slate-900"
       }`}
     >
       {/* ========================================
           Animated Background
       ========================================= */}
 
-      <div
-        className="pointer-events-none fixed inset-0 overflow-hidden"
-        aria-hidden="true"
-      >
-        {/* Base gradient */}
-        <div
-          className={`absolute inset-0 ${
-            darkMode
-              ? "bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(124,58,237,0.12),transparent_35%)]"
-              : "bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.10),transparent_35%)]"
-          }`}
-        />
-
-        {/* Blue glow */}
-        <div
-          className={`absolute -left-[25%] top-[5%] h-[45%] w-[75%] rounded-[50%] blur-[100px] ${
-            darkMode ? "bg-blue-600/14" : "bg-blue-400/16"
-          } animate-aurora-one motion-reduce:animate-none`}
-        />
-
-        {/* Purple glow */}
-        <div
-          className={`absolute -right-[25%] top-[25%] h-[45%] w-[75%] rounded-[50%] blur-[110px] ${
-            darkMode ? "bg-violet-600/12" : "bg-violet-400/14"
-          } animate-aurora-two motion-reduce:animate-none`}
-        />
-
-        {/* Cyan glow */}
-        <div
-          className={`absolute left-[15%] bottom-[-20%] h-[45%] w-[70%] rounded-[50%] blur-[120px] ${
-            darkMode ? "bg-cyan-500/8" : "bg-cyan-400/10"
-          } animate-aurora-three motion-reduce:animate-none`}
-        />
-
-        {/* Light sweep */}
-        <div
-          className={`absolute -left-1/2 top-[42%] h-40 w-[180%] rotate-[-12deg] blur-3xl ${
-            darkMode
-              ? "bg-gradient-to-r from-transparent via-blue-500/8 to-transparent"
-              : "bg-gradient-to-r from-transparent via-blue-400/10 to-transparent"
-          } animate-light-sweep motion-reduce:animate-none`}
-        />
-
-        <div
-          className={`absolute inset-0 ${
-            darkMode
-              ? "bg-gradient-to-b from-transparent via-transparent to-blue-950/20"
-              : "bg-gradient-to-b from-white/20 via-transparent to-blue-100/30"
-          }`}
-        />
-      </div>
+      <CyberBackground darkMode={darkMode} />
 
       {/* ========================================
           Header
